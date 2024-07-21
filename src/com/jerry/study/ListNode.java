@@ -138,16 +138,103 @@ class 删除链表的倒数第N个结点 {
     }
 }
 
-class 链表的中间结点 {
-    public ListNode middleNode(ListNode head) {
+class 删除排序链表中的重复元素II{
+    public static void main(String[] args) {
+        ListNode head = new ListNode(1, null);
+        head.next = new ListNode(2, null);
+        head.next.next = new ListNode(3, null);
+        head.next.next.next = new ListNode(3, null);
+        head.next.next.next.next = new ListNode(4, null);
+        head.next.next.next.next.next = new ListNode(4, null);
+        head.next.next.next.next.next.next = new ListNode(5, null);
+        ListNode listNode = deleteDuplicates(head);
+        System.out.println(listNode);
+    }
+
+    public static ListNode deleteDuplicates(ListNode head) {
+        if (head == null){
+            return head;
+        }
+        ListNode temp = new ListNode(-1);
+        temp.next = head;
+        ListNode res = temp;
+        while (res.next != null && res.next.next !=null){
+            if (res.next.val == res.next.next.val){
+                int val = res.next.val;
+                while (res.next != null && res.next.val == val){
+                    res.next = res.next.next;
+                }
+            }else {
+                res = res.next;
+            }
+        }
+      return temp.next;
+    }
+}
+
+class 删除链表的中间节点{
+    public static void main(String[] args) {
+        ListNode head = new ListNode(1, null);
+        head.next = new ListNode(3, null);
+        head.next.next = new ListNode(4, null);
+        head.next.next.next = new ListNode(7, null);
+        head.next.next.next.next = new ListNode(1, null);
+        head.next.next.next.next.next = new ListNode(2, null);
+        head.next.next.next.next.next.next = new ListNode(6, null);
+        ListNode listNode = deleteMiddle(head);
+        System.out.println(listNode);
+    }
+    public static ListNode deleteMiddle(ListNode head) {
+        if (head == null){
+            return head;
+        }
+        ListNode temp = new ListNode(-1);
+        temp.next = head;
+        ListNode p1 = temp;
+
         ListNode slow = head;
         ListNode fast = head;
-        while (fast != null && fast.next != null){
+        while (fast != null && fast.next !=null){
+            fast = fast.next.next;
+            p1 = slow;
+            slow = slow.next;
+        }
+        p1.next = p1.next.next;
+        return temp.next;
+    }
+}
+
+class 链表的中间结点 {
+    public ListNode middleNode(ListNode head) {
+        if (head == null){
+            return head;
+        }
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next !=null){
             fast = fast.next.next;
             slow = slow.next;
         }
         return slow;
+    }
+}
 
+class 环形链表{
+    public boolean hasCycle(ListNode head) {
+        if (head == null){
+            return false;
+        }
+        ListNode slow = head;
+        ListNode fast = head;
+
+        while (fast !=null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+            if (fast == slow){
+               return true;
+            }
+        }
+        return false;
     }
 }
 
@@ -201,29 +288,31 @@ class 反转链表II {
 
 
     public static ListNode reverseBetween(ListNode head, int left, int right) {
+        if (head == null){
+            return head;
+        }
         ListNode dummyNode = new ListNode(-1);
         dummyNode.next = head;
-
         ListNode pre = dummyNode;
-        for (int i = 0; i < left - 1; i++) {
+        for (int i = 0; i < left-1; i++) {
             pre = pre.next;
         }
         ListNode rightNode = pre;
-
-        for (int i = 0; i < right - left + 1; i++) {
+        for (int i = left-1; i < right; i++) {
             rightNode = rightNode.next;
         }
 
-        ListNode noPreNode = pre.next;
+        ListNode leftNode = pre.next;
         ListNode curr = rightNode.next;
 
         pre.next = null;
         rightNode.next = null;
 
+        ListNode midNode = reverseList(leftNode);
 
-        pre.next = reverseList(noPreNode);
-        noPreNode.next = curr;
+        pre.next = midNode;
 
+        leftNode.next = curr;
 
         return dummyNode.next;
     }

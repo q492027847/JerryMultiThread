@@ -42,22 +42,22 @@ public class TraditionalThreadSynchronized {
 	}
 	
  	class Outputer{
-//		public void output(String name) {
-//			int len = name.length();
-//			synchronized(this){
-//				for(int i = 0; i < len; i++) {
-//					System.out.print(name.charAt(i));
-//				}
-//				System.out.println();
-//			}
-//		}
-		
-		public synchronized void output(String name) {
+		public void output(String name) {
 			int len = name.length();
-			for(int i = 0; i < len; i++) {
-				System.out.print(name.charAt(i));
+			synchronized(this){
+				for(int i = 0; i < len; i++) {
+					System.out.print(name.charAt(i));
+				}
+				System.out.println();
 			}
-			System.out.println();
 		}
+		
+//		public synchronized void output(String name) {
+//			int len = name.length();
+//			for(int i = 0; i < len; i++) {
+//				System.out.print(name.charAt(i));
+//			}
+//			System.out.println();
+//		}
 	}
 }
