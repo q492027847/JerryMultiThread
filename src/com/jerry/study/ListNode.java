@@ -118,7 +118,7 @@ class 删除链表的倒数第N个结点 {
         ListNode newNode = new ListNode(-1);
         newNode.next = head;
         // 找到倒数第n+1个节点
-        ListNode p2 = getListNode(newNode, n+1);
+        ListNode p2 = getListNode(newNode, n + 1);
         p2.next = p2.next.next;
         return newNode.next;
 
@@ -130,7 +130,7 @@ class 删除链表的倒数第N个结点 {
             p1 = p1.next;
         }
         ListNode p2 = head;
-        while (p1 != null){
+        while (p1 != null) {
             p1 = p1.next;
             p2 = p2.next;
         }
@@ -138,7 +138,7 @@ class 删除链表的倒数第N个结点 {
     }
 }
 
-class 删除排序链表中的重复元素II{
+class 删除排序链表中的重复元素II {
     public static void main(String[] args) {
         ListNode head = new ListNode(1, null);
         head.next = new ListNode(2, null);
@@ -152,27 +152,25 @@ class 删除排序链表中的重复元素II{
     }
 
     public static ListNode deleteDuplicates(ListNode head) {
-        if (head == null){
+        if (head == null) {
             return head;
         }
-        ListNode temp = new ListNode(-1);
-        temp.next = head;
-        ListNode res = temp;
-        while (res.next != null && res.next.next !=null){
-            if (res.next.val == res.next.next.val){
-                int val = res.next.val;
-                while (res.next != null && res.next.val == val){
-                    res.next = res.next.next;
-                }
-            }else {
-                res = res.next;
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null) {
+            if (slow.val != fast.val){
+                slow.next = fast;
+                slow = slow.next;
+
             }
+            fast = fast.next;
         }
-      return temp.next;
+        slow.next = null;
+        return head;
     }
 }
 
-class 删除链表的中间节点{
+class 删除链表的中间节点 {
     public static void main(String[] args) {
         ListNode head = new ListNode(1, null);
         head.next = new ListNode(3, null);
@@ -184,8 +182,9 @@ class 删除链表的中间节点{
         ListNode listNode = deleteMiddle(head);
         System.out.println(listNode);
     }
+
     public static ListNode deleteMiddle(ListNode head) {
-        if (head == null){
+        if (head == null) {
             return head;
         }
         ListNode temp = new ListNode(-1);
@@ -194,7 +193,7 @@ class 删除链表的中间节点{
 
         ListNode slow = head;
         ListNode fast = head;
-        while (fast != null && fast.next !=null){
+        while (fast != null && fast.next != null) {
             fast = fast.next.next;
             p1 = slow;
             slow = slow.next;
@@ -206,12 +205,12 @@ class 删除链表的中间节点{
 
 class 链表的中间结点 {
     public ListNode middleNode(ListNode head) {
-        if (head == null){
+        if (head == null) {
             return head;
         }
         ListNode slow = head;
         ListNode fast = head;
-        while (fast != null && fast.next !=null){
+        while (fast != null && fast.next != null) {
             fast = fast.next.next;
             slow = slow.next;
         }
@@ -219,19 +218,19 @@ class 链表的中间结点 {
     }
 }
 
-class 环形链表{
+class 环形链表 {
     public boolean hasCycle(ListNode head) {
-        if (head == null){
+        if (head == null) {
             return false;
         }
         ListNode slow = head;
         ListNode fast = head;
 
-        while (fast !=null && fast.next != null){
+        while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
-            if (fast == slow){
-               return true;
+            if (fast == slow) {
+                return true;
             }
         }
         return false;
@@ -240,18 +239,18 @@ class 环形链表{
 
 class 相交链表 {
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
-        ListNode p1 =headA;
-        ListNode p2 =headB;
-        while (p1 != p2){
-            if (p1 == null){
+        ListNode p1 = headA;
+        ListNode p2 = headB;
+        while (p1 != p2) {
+            if (p1 == null) {
                 p1 = headB;
-            }else {
+            } else {
                 p1 = p1.next;
             }
 
-            if (p2 == null){
+            if (p2 == null) {
                 p2 = headA;
-            }else {
+            } else {
                 p2 = p2.next;
             }
         }
@@ -262,7 +261,7 @@ class 相交链表 {
 
 class 反转链表 {
     public ListNode reverseList(ListNode head) {
-        if (head == null || head.next == null){
+        if (head == null || head.next == null) {
             return head;
         }
         ListNode last = reverseList(head.next);
@@ -271,7 +270,6 @@ class 反转链表 {
         return last;
     }
 }
-
 
 
 class 反转链表II {
@@ -288,17 +286,17 @@ class 反转链表II {
 
 
     public static ListNode reverseBetween(ListNode head, int left, int right) {
-        if (head == null){
+        if (head == null) {
             return head;
         }
         ListNode dummyNode = new ListNode(-1);
         dummyNode.next = head;
         ListNode pre = dummyNode;
-        for (int i = 0; i < left-1; i++) {
+        for (int i = 0; i < left - 1; i++) {
             pre = pre.next;
         }
         ListNode rightNode = pre;
-        for (int i = left-1; i < right; i++) {
+        for (int i = left - 1; i < right; i++) {
             rightNode = rightNode.next;
         }
 
@@ -318,7 +316,7 @@ class 反转链表II {
     }
 
     public static ListNode reverseList(ListNode head) {
-        if (head == null || head.next == null){
+        if (head == null || head.next == null) {
             return head;
         }
         ListNode last = reverseList(head.next);
